@@ -3,7 +3,7 @@ from typing import Any
 import pygame
 from pygame.sprite import Sprite
 
-from game.utils.constants import ENEMY_1, ENEMY_TYPE, SCREEN_HEIGHT, SCREEN_WIDTH
+from game.utils.constants import ENEMY_1, ENEMY_2, ENEMY_3, ENEMY_TYPE, ENEMY_2_TYPE, ENEMY_3_TYPE, SCREEN_HEIGHT, SCREEN_WIDTH
 
 LEFT = 'left'
 RIGTH = 'rigth'
@@ -16,17 +16,24 @@ class Enemy(Sprite):
     SPEED_Y = 1
 
     def __init__(self):
-        self.image = pygame.transform.scale(ENEMY_1, (50, 50))
+        self.type = random.choice([ENEMY_TYPE, ENEMY_2_TYPE, ENEMY_3_TYPE])
+        if self.type == ENEMY_TYPE:
+            self.image = pygame.transform.scale(ENEMY_1, (50, 50))
+        elif self.type == ENEMY_2_TYPE:
+            self.image = pygame.transform.scale(ENEMY_2, (50, 50))
+        elif self.type == ENEMY_3_TYPE:
+            self.image = pygame.transform.scale(ENEMY_3, (50, 50))
+        else:
+            self.image = pygame.transform.scale(ENEMY_1, (50, 50))
         self.rect = self.image.get_rect()
         self.rect.x = random.choice(self.X_POS_LIST)
         self.rect.y = self.Y_POS
-        self.type = ENEMY_TYPE
         self.speed_x = self.SPEED_X
         self.speed_y = self.SPEED_Y
         self.movement = random.choice(self.MOVEMENTS)
         self.move_x = random.randint(30, 100)
         self.moving_index = 0
-    
+ 
     def update(self, ships):
         self.rect.y += self.speed_y
 
