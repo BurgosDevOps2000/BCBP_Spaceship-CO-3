@@ -28,12 +28,12 @@ class Enemy(Sprite):
         self.movement = random.choice(self.MOVEMENTS)
         self.move_x = random.randint(30, 100)
         self.moving_index = 0
-        self.shooting_time = random.randint(30, 50)
+        self.shooting_time = random.randint(30, 50) # Último momento en que se realizó un disparo
+
  
     def update(self, ships, game):
         self.rect.y += self.speed_y
         self.shoot(game.bullet_manager)
-
         if self.movement == LEFT:
             self.rect.x -= self.speed_x
         else:
@@ -43,7 +43,7 @@ class Enemy(Sprite):
             ships.remove(self)
 
         self.update_movement()
-    
+
     def update_movement(self):
         self.moving_index += 1
         if self.rect.x >= SCREEN_WIDTH -50:

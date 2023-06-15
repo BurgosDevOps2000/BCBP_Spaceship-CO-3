@@ -21,7 +21,7 @@ class BulletManager:
     def draw(self, screen):
         for bullet in self.enemy_bullet:
             bullet.draw(screen)
-
+    
     def add_bullet(self, bullet):
-        if bullet.owner == ENEMY_TYPE and not self.enemy_bullet:
+        if bullet.owner.type == ENEMY_TYPE:
             self.enemy_bullet.append(bullet)
