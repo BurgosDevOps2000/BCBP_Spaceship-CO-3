@@ -20,8 +20,6 @@ HEART = pygame.image.load(os.path.join(IMG_DIR, 'Other/SmallHeart.png'))
 DEFAULT_TYPE = "default"
 SHIELD_TYPE = 'shield'
 ENEMY_TYPE = 'enemy'
-ENEMY_2_TYPE= 'enemy2'
-ENEMY_3_TYPE= 'enemy3'
 
 SPACESHIP = pygame.image.load(os.path.join(IMG_DIR, "Spaceship/spaceship.png"))
 SPACESHIP_SHIELD = pygame.image.load(os.path.join(IMG_DIR, "Spaceship/spaceship_shield.png"))

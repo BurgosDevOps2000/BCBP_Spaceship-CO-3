@@ -1,15 +1,25 @@
 import pygame
+from pygame.sprite import Sprite
 
-from game.utils.constants import BULLET
+from game.utils.constants import BULLET_ENEMY, ENEMY_TYPE, SCREEN_HEIGHT
 
-class Bullet(pygame.sprite.Sprite):
-    def __init__(self, x, y):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = BULLET  # Imagen de la bala (bullet)
-        self.rect = self.image.get_rect()
-        self.rect.centerx = x  # Posición inicial en el eje x
-        self.rect.bottom = y  # Posición inicial en el eje y
-        self.speed = 5  # Velocidad de la bala (puedes ajustarla según tus necesidades)
+class Bullet(Sprite):
+    SPEED = 20
+    ENEMY_BULLET_IMG = pygame.transform.scale(BULLET_ENEMY, (9, 32))
+    BULLETS = {ENEMY_TYPE: ENEMY_BULLET_IMG}
+    
+    def __init__(self, spaceship):
+       self.image = self.BULLETS(spaceship.type)
+       self.rect = self.image.get_rect()
+       self.rect.center = spaceship.rect.center
+       self.owner = spaceship.type
 
-    def update(self):
-        self.rect.y -= self.speed  # Mover la bala hacia arriba
+
+    def update(self, bullets):
+       if self.owner == ENEMY_TYPE:
+          self.rect.y += self.SPEED
+          if self.rect.y >= SCREEN_HEIGHT:
+             bullets.remove(self)
+
+    def draw(self, screen):
+       screen.blit(self.image, (self.rect.x, self.rect.y))
