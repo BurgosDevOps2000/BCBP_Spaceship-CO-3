@@ -57,3 +57,7 @@ class Spaceship(Sprite):
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
+
+    def reset(self):
+        self.rect.centerx = SCREEN_WIDTH // 2
+        self.rect.bottom = SCREEN_HEIGHT - 10

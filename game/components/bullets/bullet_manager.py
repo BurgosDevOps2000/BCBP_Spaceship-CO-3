@@ -30,8 +30,8 @@ class BulletManager:
             if bullet.rect.colliderect(game.player.rect):
                 bullets_to_remove.append(bullet)
                 game.playing = False
-                you_died_screen = YouDied()  # Crear una instancia de la clase YouDied
-                you_died_screen.show()  # Mostrar la pantalla de "Has muerto"
+                you_died_screen = YouDied(game.score, game.max_score) # Crear una instancia de la clase YouDied
+                you_died_screen.run(game)# Mostrar la pantalla de "Has muerto"
                 break
         for bullet in bullets_to_remove:
             self.enemy_bullets.remove(bullet)

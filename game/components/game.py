@@ -24,7 +24,6 @@ class Game:
         self.player = Spaceship()
         self.enemy_manager = EnemyManager()  # Se asigna una instancia de EnemyManager
         self.bullet_manager = BulletManager()
-        
         self.menu = Menu("Press enter to start", 32)
         self.max_score = 0
 
@@ -100,6 +99,7 @@ class Game:
             self.max_score = self.score
         you_died_screen = YouDied(self.score, self.max_score)
         you_died_screen.run()
+
 
     def on_close(self):
         self.running = False

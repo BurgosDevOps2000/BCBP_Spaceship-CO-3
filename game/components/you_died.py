@@ -21,7 +21,7 @@ class YouDied:
         self.text_max_score_rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 150)
         self.restart = False
 
-    def run(self):
+    def run(self, game):
         running = True
         while running:
             for event in pygame.event.get():
@@ -30,10 +30,10 @@ class YouDied:
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         if self.restart:
-                            self.reset_game()
-                            self.restart = False
-                        else:
+                            game.reset()  # Reiniciar el juego a través de la instancia de Game
                             running = False
+                        else:
+                            self.restart = True
 
             self.screen.fill((0, 0, 0))
             self.screen.blit(self.text_large, self.text_large_rect)
@@ -43,5 +43,3 @@ class YouDied:
             pygame.display.flip()
 
         pygame.quit()
-
-    
