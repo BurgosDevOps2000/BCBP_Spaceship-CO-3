@@ -13,6 +13,7 @@ class PowerUps(Sprite):
         self.star_time = 0
     
     def update(self, speed, power_ups):
+        self.rect.y += speed
         if self.rect.y < 0 or self.rect.y >= SCREEN_HEIGHT:
             power_ups.remove(self)
     
