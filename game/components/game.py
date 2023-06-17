@@ -1,6 +1,7 @@
 import pygame
 from game.components.dead import YouDied
 from game.components.menu import Menu
+from game.components.powerups.manager import Manager
 from game.utils.constants import BG, FONT_STYLE, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE
 from game.components.bullets.bullet_manager import BulletManager
 from game.components.enemies.enemy_manager import EnemyManager
@@ -18,12 +19,12 @@ class Game:
         self.game_speed = 10
         self.x_pos_bg = 0
         self.y_pos_bg = 0
-        
         self.score = 0
         self.death_count = 0
         self.player = Spaceship()
         self.enemy_manager = EnemyManager()  # Se asigna una instancia de EnemyManager
         self.bullet_manager = BulletManager()
+        self.power_up_manager = Manager()
         self.menu = Menu("Press enter to start", 32)
         self.max_score = 0
 
@@ -55,6 +56,7 @@ class Game:
         self.player.update(user_input, self)
         self.enemy_manager.update(self)
         self.bullet_manager.update(self)
+        self.power_up_manager.update(self)
         if not self.player.alive:
             self.reset()
 
@@ -66,6 +68,7 @@ class Game:
         self.player.draw(self.screen)
         self.enemy_manager.draw(self.screen)
         self.bullet_manager.draw(self.screen)
+        self.power_up_manager.draw(self.screen)
         pygame.display.update()
         pygame.display.flip()
 
@@ -95,6 +98,7 @@ class Game:
         self.player.reset()
         self.bullet_manager.reset()
         self.enemy_manager.reset()
+        self.power_up_manager.reset()
         if self.score > self.max_score:
             self.max_score = self.score
 

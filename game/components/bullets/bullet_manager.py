@@ -1,6 +1,6 @@
 from game.components.enemies.enemy import Enemy
 from game.components.dead import YouDied
-from game.utils.constants import ENEMY_TYPE, PLAYER_TYPE
+from game.utils.constants import ENEMY_TYPE, PLAYER_TYPE, SHIELD_TYPE
 
 class BulletManager:
     def __init__(self):
@@ -29,10 +29,11 @@ class BulletManager:
             bullet.update(self.enemy_bullets)
             if bullet.rect.colliderect(game.player.rect):
                 bullets_to_remove.append(bullet)
-                game.playing = False
-                you_died_screen = YouDied(game.score, game.max_score) # Crear una instancia de la clase YouDied
-                you_died_screen.run(game)# Mostrar la pantalla de "Has muerto"
-                break
+                if game.player.power_up_type != SHIELD_TYPE:
+                    game.playing = False
+                    you_died_screen = YouDied(game.score, game.max_score) # Crear una instancia de la clase YouDied
+                    you_died_screen.run(game)# Mostrar la pantalla de "Has muerto"
+                    break
         for bullet in bullets_to_remove:
             if bullet in self.enemy_bullets:
                 self.enemy_bullets.remove(bullet)
