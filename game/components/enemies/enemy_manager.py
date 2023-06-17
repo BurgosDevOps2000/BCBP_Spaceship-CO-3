@@ -19,3 +19,5 @@ class EnemyManager:
         enemy = Enemy()
         self.enemies.append(enemy)
     
+    def reset(self):
+        self.enemies = []

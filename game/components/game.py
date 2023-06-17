@@ -1,5 +1,5 @@
 import pygame
-from game.components.you_died import YouDied
+from game.components.dead import YouDied
 from game.components.menu import Menu
 from game.utils.constants import BG, FONT_STYLE, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE
 from game.components.bullets.bullet_manager import BulletManager
@@ -97,9 +97,6 @@ class Game:
         self.enemy_manager.reset()
         if self.score > self.max_score:
             self.max_score = self.score
-        you_died_screen = YouDied(self.score, self.max_score)
-        you_died_screen.run()
-
 
     def on_close(self):
         self.running = False

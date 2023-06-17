@@ -1,5 +1,5 @@
 from game.components.enemies.enemy import Enemy
-from game.components.you_died import YouDied
+from game.components.dead import YouDied
 from game.utils.constants import ENEMY_TYPE, PLAYER_TYPE
 
 class BulletManager:
@@ -18,7 +18,7 @@ class BulletManager:
             bullet.draw(screen)
 
     def add_bullet(self, bullet):
-        if bullet.owner == ENEMY_TYPE:
+        if bullet.owner == ENEMY_TYPE and not self.enemy_bullets:
             self.enemy_bullets.append(bullet)
         elif bullet.owner == PLAYER_TYPE:
             self.bullets.append(bullet)
@@ -34,7 +34,8 @@ class BulletManager:
                 you_died_screen.run(game)# Mostrar la pantalla de "Has muerto"
                 break
         for bullet in bullets_to_remove:
-            self.enemy_bullets.remove(bullet)
+            if bullet in self.enemy_bullets:
+                self.enemy_bullets.remove(bullet)
 
     def update_bullets(self, game):
         bullets_to_remove = []
@@ -55,9 +56,7 @@ class BulletManager:
         for enemy in enemies_to_remove:
             if enemy in game.enemy_manager.enemies:
                 game.enemy_manager.enemies.remove(enemy)
-                self.spawn_enemy(game.enemy_manager)
 
-    def spawn_enemy(self, enemy_manager):
-        enemy = Enemy()
-        enemy_manager.add_enemy(enemy)
-
+    def reset(self):
+        self.bullets = []
+        self.enemy_bullets = []

@@ -3,7 +3,6 @@ from game.utils.constants import SCREEN_WIDTH, SCREEN_HEIGHT
 
 class YouDied:
     def __init__(self, score, max_score):
-        pygame.init()
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.font_large = pygame.font.Font(None, 60)
         self.font_small = pygame.font.Font(None, 36)
@@ -29,17 +28,13 @@ class YouDied:
                     running = False
                 elif event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
-                        if self.restart:
-                            game.reset()  # Reiniciar el juego a través de la instancia de Game
-                            running = False
-                        else:
-                            self.restart = True
-
+                        game.reset()  # Reiniciar el juego a través de la instancia de Game
+                        running = False
+                        
             self.screen.fill((0, 0, 0))
             self.screen.blit(self.text_large, self.text_large_rect)
             self.screen.blit(self.text_small, self.text_small_rect)
             self.screen.blit(self.text_max_score, self.text_max_score_rect)
             self.screen.blit(self.restart_text, self.restart_text_rect)
             pygame.display.flip()
-
-        pygame.quit()
+        print("holi")
